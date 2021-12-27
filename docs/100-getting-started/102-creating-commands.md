@@ -1,10 +1,11 @@
 # Creating commands
 
-!!! Note
+```{note}
 
-    This page is a follow-up, and the base code used is from the previous page ([Initial files](./101-initial-files.md)). The code can be found on the GitHub repository [here]({{ guiderepo }}/tree/main/docs/extra-code-samples/code-intial-files).
+This page is a follow-up, and the base code used is from the previous page ([Initial files](./101-initial-files.md)). The code can be found on the GitHub repository [here](https:/github.com/DisnakeDev/guide/tree/main/docs/extra-code-samples/code-intial-files).
+```
 
-Discord also allows developers to register [slash commands]({{ devdocs }}/interactions/application-commands), which
+Discord also allows developers to register {disdocs}`slash commands </interactions/application-commands>`, which
 provides users a first-class way of interacting directly with your application. These slash commands shall be covered by
 the guide [here](../200-interactions/202-application-commands.md), in the **Interactions** section.
 
@@ -13,11 +14,12 @@ the guide [here](../200-interactions/202-application-commands.md), in the **Inte
 Bot commands that are initiated when a keyword is used along with a specified prefix (such as `!` or `$`) are known as
 **prefix commands** (are also often referred to as **text commands**).
 
-!!! Warning "Message Intent - Privileged"
+```{warning} Message Intent - Privileged
 
-    It is to be noted that handling prefix commands require the **message intent**, which allows the bot to get content and data of messages sent by users. This intent has recently been privileged, i.e., it needs to be manually enabled for the bot application, and its requirement will eventually be reviewed if your bot is in over 100 servers.
+It is to be noted that handling prefix commands require the **message intent**, which allows the bot to get content and data of messages sent by users. This intent has recently been privileged, i.e., it needs to be manually enabled for the bot application, and its requirement will eventually be reviewed if your bot is in over 100 servers.
 
-    You can read more about the message intent [here][message-intent-article].
+You can read more about the message intent [here][message-intent-article].
+```
 
 Therefore, to minimize the permissions your bot has to use, we will be covering prefix commands under the **Popular
 Topics** section, and advancing with the basics of slash commands in this article; more advanced topics of the same will
@@ -46,9 +48,9 @@ async def on_ready():
 bot.run("YOUR_BOT_TOKEN")
 ```
 
-The first step is to use the `@bot.slash_command` coroutine, along with an `async` function in order to define the code
-for your slash command. Below is a script demonstrating the same (focus on the use of `inter`, which is short for
-`interaction`).
+The first step is to use the {py:meth}`@bot.slash_command <disnake.ext.commands.Bot.slash_command>` coroutine, along
+with an async function in order to define the code for your slash command. Below is a script demonstrating the same
+(focus on the use of `inter`, which is short for `interaction`).
 
 ```python linenums="1" title="main.py" hl_lines="12-14"
 import disnake
@@ -74,16 +76,20 @@ The `inter` passed into the function is analogous to context, or `ctx` used in p
 information relative to the interaction - data regarding the user who initiated the command, as an example. It is also
 necessary for replying to the use of the command.
 
-???+ Note "Using `ctx` vs. `inter`"
-
-    If you have experience with coding bots with [`discord.py`]({{ dpydocs }}), you would be familiar with using `ctx` as an abbreviation for passing context into the function. This guide will primarily be using `inter`, as it is short for `interaction` and refers to [`disnake.ApplicationCommandInteraction()`]({{ disnakedocs }}/api.html?highlight=applicationcommandinteraction#applicationcommandinteraction). Of course, you're open to using your preferred abbreviation in code.
+<!-- prettier-ignore -->
+:::{admonition} Using `ctx` vs. `inter`
+If you have experience with coding bots with {dpydocs}`discord.py </>`, you would be familiar with using `ctx` as an
+abbreviation for passing context into the function. This guide will primarily be using `inter`, as it is short for
+`interaction` and refers to {py:class}`disnake.ApplicationCommandInteraction`. Of course, you're open to using your
+preferred abbreviation in code.
+:::
 
 ### Registering commands in specific guilds
 
 Note that servers are referred to as "guilds" in the Discord API and disnake library. On running the above code, the
 slash command will be registered globally, and will be accessible on all servers the bot is in. The caveat being that
-global registration of slash commands can take up to 1 hour (refer to [Discord's
-documentation]({{ devdocs }}/interactions/application-commands#create-global-application-command)).
+global registration of slash commands can take up to 1 hour (refer to
+{disdocs}`Discord's documentation </interactions/application-commands#create-global-application-command>`.
 
 When you're trying to test your changes to code in real time, it can be immensely useful to have the command's function
 update with your code changes right away. Thus, you can use the `guild_ids` argument for the command to be
@@ -110,13 +116,18 @@ async def ping(inter):
 bot.run("YOUR_BOT_TOKEN")
 ```
 
-???+ Tip "Using `test_guilds` in `commands.Bot()`"
+<!-- prettier-ignore -->
+:::{admonition} Using `test_guilds` in `commands.Bot()`
 
-    When you have multiple commands registered under the same test guilds, it is convenient to only have your `guild_ids` defined once. Therefore, you can use the `test_guilds` argument in the `commands.Bot()` instance instead of passing `guild_ids` to every single command -
+When you have multiple commands registered under the same test guilds, it is convenient to only have your `guild_ids`
+defined once. Therefore, you can use the `test_guilds` argument in the `commands.Bot()` instance instead of passing
+`guild_ids` to every single command -
 
-    ``` python
-    bot = commands.Bot(test_guilds=[1234, 5678])
-    ```
+```python
+bot = commands.Bot(test_guilds=[1234, 5678])
+```
+
+:::
 
 Now that you're all set with registering the slash command, you can proceed with responding to the initiated command.
 
@@ -146,13 +157,14 @@ async def ping(inter):
 bot.run("YOUR_BOT_TOKEN")
 ```
 
-![](../assets/img-creating-commands/001.png){ width="60%" }
+```{image} /assets/img-creating-commands/001.png
+:width: 60%
+```
 
 ### Server info command
 
-`inter.guild` refers to the guild the interaction was sent in (a [Guild
-instance]({{ disnakedocs }}/api.html?highlight=guild#disnake.Guild)), which exposes properties such as `.name` or
-`.member_count`.
+`inter.guild` refers to the guild the interaction was sent in (a {py:class}`disnake.Guild`), which exposes properties
+such as `.name` or `.member_count`.
 
 ```python linenums="1" title="main.py" hl_lines="12-16"
 import disnake
@@ -176,21 +188,22 @@ async def server(inter):
 bot.run("YOUR_BOT_TOKEN")
 ```
 
-![](../assets/img-creating-commands/002.png){ width="60%" }
+```{image} /assets/img-creating-commands/002.png
+:width: 60%
+```
 
-!!! Tip Inline End
-
-    Refer to the [Guild]({{ disnakedocs }}/api.html?highlight=guild#disnake.Guild) documentation for a list of all the available properties and methods.
+```{tip}
+Refer to the {py:class}`disnake.Guild` documentation for a list of all the available properties and methods.
+```
 
 You could also display the date the server was created, or the server's verification level. You would do those in the
 same manner - use `inter.guild.created_at` or `inter.guild.verification_level`, respectively.
 
 ### User info command
 
-A "user" refers to a Discord user. `inter.author` refers to the user the interaction was sent by (a [User
-instance]({{ disnakedocs }}/api.html?highlight=user#disnake.User) in DM contexts, or a [Member
-instance]({{ disnakedocs }}/api.html?highlight=user#disnake.Member) in server contexts), which exposes properties such
-as `.name` or `.id`. (Using just `inter.author` will give the user's full tag.)
+A "user" refers to a Discord user. `inter.author` refers to the user the interaction was sent by (a
+{py:class}`disnake.User` in DM contexts, or a {py:class}`disnake.Member`) in server contexts), which exposes properties
+such as `.name` or `.id`. (Using just `inter.author` will give the user's full tag.)
 
 ```python linenums="1" title="main.py" hl_lines="12-14"
 import disnake
@@ -212,17 +225,19 @@ async def user(inter):
 bot.run("YOUR_BOT_TOKEN")
 ```
 
-![](../assets/img-creating-commands/003.png){ width="60%" }
+```{image} /assets/img-creating-commands/003.png
+:width: 60%
+```
 
-!!! Tip
-
-    Refer to the [User]({{ disnakedocs }}/api.html?highlight=user#disnake.User) and [Member]({{ disnakedocs }}/api.html?highlight=user#disnake.Member) documentation for a list of all the available properties and methods.
+```{tip}
+Refer to the {py:class}`disnake.User` and {py:class}`disnake.Member` documentation for a list of all the available properties and methods.
+```
 
 And there you have it!
 
 ## Resulting Code
 
 If you want to compare your code to the code we've constructed so far, you can review it over on the GitHub repository
-[here]({{ guiderepo }}/tree/main/docs/extra-code-samples/code-creating-commands).
+[here](https:/github.com/DisnakeDev/guide/tree/main/docs/extra-code-samples/code-creating-commands).
 
 [message-intent-article]: https://support-dev.discord.com/hc/en-us/articles/4404772028055

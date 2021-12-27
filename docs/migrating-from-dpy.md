@@ -1,8 +1,7 @@
 # Migrating from discord.py
 
-After the discontinuation of `discord.py` (refer [this gist]({{ futureofdpy }})), many forks of the API wrapper branched
-onward to maintain the library, in order to keep it updated with the latest features and Discord API changes - `disnake`
-is one such fork.
+After the discontinuation of `discord.py`, many forks of the API wrapper branched onward to maintain the library, in
+order to keep it updated with the latest features and Discord API changes - `disnake` is one such fork.
 
 Thus, if you've chosen `disnake` as your fork of choice in order to implement interactions/components and other
 features, this page will help you understand the changes in syntax, and aim for making your migrating process as smooth
@@ -12,8 +11,8 @@ as possible.
 
 `disnake` is based on `discord.py 2.0`, which had major syntax changes from its previous version. Therefore, if you're
 shifting to `disnake` from a version of `discord.py` lower than 2.0, you will have to make some important syntax changes
-in your code. You can refer [this page]({{ breakingchanges }}) for the full list of breaking changes in
-`discord.py 2.0`, though we will list some primary API reference changes here:
+in your code. You can refer [this page][breakingchanges] for the full list of breaking changes in `discord.py 2.0`,
+though we will list some primary API reference changes here:
 
 -   Methods and attributes that returned `TextChannel`, etc can now return `Thread`.
 -   Attributes that returned `Asset` are renamed, e.g. attributes ending with `_url` (i.e. `avatar_url`) are changed to
@@ -34,23 +33,26 @@ in your code. You can refer [this page]({{ breakingchanges }}) for the full list
 In order to avoid conflicts between the libraries, you must uninstall `discord.py`. You can do so by using the following
 command in your terminal:
 
-=== "Windows"
+````{tabbed} Windows
 
-    ```
-    py -3 -m pip uninstall discord
-    ```
+```
+py -3 -m pip uninstall discord
+```
+````
 
-=== "macOS"
+````{tabbed} macOS
 
-    ```
-    python3 -m pip uninstall discord
-    ```
+```
+python3 -m pip uninstall discord
+```
+````
 
-=== "Linux"
+````{tabbed} Linux
 
-    ```
-    python3 -m pip uninstall discord
-    ```
+```
+python3 -m pip uninstall discord
+```
+````
 
 To install `disnake`, you can follow the instructions on [this page](000-prerequisites/001-installing-disnake.md).
 
@@ -62,54 +64,57 @@ throughout the code, since the base code for both the libraries is practically t
 
 There are three ways to switch between libraries:
 
-#### Replace `discord` with `disnake`
+### Replace `discord` with `disnake`
 
 1. Import `disnake` into your code (and delete the lines where you import `discord`).
 
-    ```py
-    import disnake
-    from disnake.ext import commands
-    ```
+```py
+import disnake
+from disnake.ext import commands
+```
 
 2. With your favorite editor, replace every `discord` reference in your code with `disnake`.
 
-#### Import `disnake as discord`
+### Import `disnake as discord`
 
 Import `disnake as discord` into your code (and delete the lines where you import `discord`). This reduces the effort of
 changing all references throughout your code.
 
-```py
+```python
 import disnake as discord
 from disnake.ext import commands
 ```
 
-#### Using the `discord` shim
+### Using the `discord` shim
 
 Using the `discord` shim allows you to use `disnake`, without the need to import it directly or importing it as
 discord - thus eliminating the need to change your code at all. To install the shim, you can use the following command
 in your terminal:
 
-=== "Windows"
+````{tabbed} Windows
+```
+py -3 -m pip install disnake[discord]
+```
+````
 
-    ```
-    py -3 -m pip install disnake[discord]
-    ```
+````{tabbed} macOS
 
-=== "macOS"
+```
+python3 -m pip install disnake[discord]
+```
+````
 
-    ```
-    python3 -m pip install disnake[discord]
-    ```
+````{tabbed} Linux
 
-=== "Linux"
+```
+python3 -m pip install disnake[discord]
+```
+````
 
-    ```
-    python3 -m pip install disnake[discord]
-    ```
+```{warning}
 
-!!! Warning
-
-    We don't recommend using the shim, as it is updated less frequently and may break the behaviour of interactions/components in some cases. If possible, proceed with one of the other two procedures mentioned.
+ We don't recommend using the shim, as it is updated less frequently and may break the behaviour of interactions/components in some cases. If possible, proceed with one of the other two procedures mentioned.
+```
 
 And that's it! Since `disnake` is a fork of `discord.py`, it inherits a lot of similarities - though we recommend you to
 always run your code to fix any possible issues.

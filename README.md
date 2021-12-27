@@ -1,4 +1,4 @@
-[![Disnake Banner](https://raw.githubusercontent.com/DisnakeDev/guide/main/docs/assets/disnake-readme-banner.png)](https://disnake.dev/)
+[![Disnake Banner](/docs/assets/disnake-readme-banner.png)](https://disnake.dev/)
 
 # Disnake Guide (WIP)
 
@@ -8,8 +8,12 @@
     <a href="https://guide.disnake.dev/"><img src="https://img.shields.io/github/deployments/DisnakeDev/guide/github-pages?style=flat-square&color=blue" alt="GitHub checks" /></a>
 </p>
 
-WelcomeThe purpose of this guide is to make your journey with `disnake` easier, whether you're an experienced developer
-just getting into coding Discord bots, or an advanced bot developer who has decided to proceed with `disnake` as their
+Welcome!
+
+<!-- start summary -->
+
+The purpose of this guide is to make your journey with `disnake` easier, whether you're an experienced developer just
+getting into coding Discord bots, or an advanced bot developer who has decided to proceed with `disnake` as their
 library of choice.
 
 The concept we will be going over, include:
@@ -26,6 +30,8 @@ The concept we will be going over, include:
 
 This guide will showcase the various features and events that our library has, while giving you an idea of how these
 functions work together as well as how the syntax looks in production.
+
+<!-- end summary -->
 
 ## Development
 

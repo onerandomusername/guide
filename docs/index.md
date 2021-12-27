@@ -1,25 +1,11 @@
 # Introduction
 
-Welcome! The purpose of this guide is to make your journey with `disnake` easier, whether you're an experienced
-developer just getting into coding Discord bots, or an advanced bot developer who has decided to proceed with `disnake`
-as their library of choice.
+```{include} ../README.md
+:start-after: <!-- start summary -->
+:end-before: <!-- end summary -->
+```
 
-The concept we will be going over, include:
-
--   How to get started on working with bots;
--   How to create and organize commands, using cogs/extensions;
--   Working with databases (such as [`sqlite`][sqlite-docs] and [`mongodb (pymongo)`][mongodb-docs]);
--   Using the [`AutoShardedClient`](https://disnake.readthedocs.io/en/latest/api.html#disnake.AutoShardedClient) class
-    to shard your bot;
--   A plethora of examples with popular topics along with in-depth explanation, and much more!
-
-[sqlite-docs]: https://docs.python.org/3/library/sqlite3.html
-[mongodb-docs]: https://pymongo.readthedocs.io/en/stable
-
-This guide will showcase the various features and events that our library has, while giving you an idea of how these
-functions work together as well as how the syntax looks in production.
-
-<h2>Pre-Required Knowledge</h2>
+## Pre-Required Knowledge
 
 While we appreciate the process of making Discord bots, creating a bot with `disnake` requires a decent amount of
 experience on working with Python and object-oriented programming. You _can_ go forward and make a bot with little to no
@@ -36,3 +22,57 @@ If you don't know Python but would like to learn more, here are a few resources 
 An extensive list of these resources can be found on
 [Python's official website](https://wiki.python.org/moin/BeginnersGuide/NonProgrammers). Once you're more experienced
 with Python, you can come back here to get started!
+
+## Contents
+
+<!-- start contents -->
+
+```{toctree}
+:glob:
+:caption: Pre-requisites
+:maxdepth: 1
+
+000-prerequisites/*
+```
+
+```{toctree}
+:glob:
+:caption: Getting Started
+:maxdepth: 1
+
+100-getting-started/*
+```
+
+```{toctree}
+:glob:
+:caption: Interactions
+:maxdepth: 1
+
+200-interactions/*
+```
+
+```{toctree}
+:glob:
+:caption: Popular Topics
+:maxdepth: 1
+
+300-popular-topics/*
+```
+
+```{toctree}
+:glob:
+:caption: Frequently Asked Questions
+:maxdepth: 1
+
+migrating-from-dpy.md
+400-faq/*
+```
+
+```{toctree}
+:caption: Credits
+:maxdepth: 1
+
+links-credits.md
+```
+
+<!-- end contents -->

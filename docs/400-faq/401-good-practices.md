@@ -54,9 +54,10 @@ from disnake.ext import commands
 bot = commands.Bot(..., reload=True)
 ```
 
-!!! Warning
+```{warning}
 
-    This should be used purely for debugging. Please do not use this in production.
+This should be used purely for debugging. Please do not use this in production.
+```
 
 ## Converting arguments in commands
 
@@ -66,91 +67,95 @@ use with type-checkers because the type of the parameter is never actually the c
 Disnake aims to eliminate this issue by only allowing conversion of builtin types like `disnake.Member`,
 `disnake.Emoji`, etc. If you ever want to have your own converter you have to use the `converter` argument in `Param`.
 
-=== "`disnake`"
+````{tabbed} disnake
 
-    ```python linenums="1" hl_lines="10"
-    async def convert_data(inter: disnake.ApplicationCommandInteraction, arg: str):
+```python linenums="1" hl_lines="10"
+async def convert_data(inter: disnake.ApplicationCommandInteraction, arg: str):
+    parts = arg.split(",")
+    return {"a": parts[0], "b": int(parts[1]), "c": parts[2].lower()}
+
+
+@commands.slash_command()
+async def command(
+    self,
+    inter: disnake.ApplicationCommandInteraction,
+    data: Dict[str, Any] = commands.Param(converter=convert_data),
+):
+    ...
+```
+````
+
+````{tabbed} discord.py
+
+```python linenums="1"
+class DataConverter(commands.Converter):
+    async def convert(self, ctx: commands.Context, arg: str):
         parts = arg.split(",")
         return {"a": parts[0], "b": int(parts[1]), "c": parts[2].lower()}
 
 
-    @commands.slash_command()
-    async def command(
-        self,
-        inter: disnake.ApplicationCommandInteraction,
-        data: Dict[str, Any] = commands.Param(converter=convert_data),
-    ):
-        ...
-    ```
-
-=== "`discord.py`"
-
-    ```python linenums="1"
-    class DataConverter(commands.Converter):
-        async def convert(self, ctx: commands.Context, arg: str):
-            parts = arg.split(",")
-            return {"a": parts[0], "b": int(parts[1]), "c": parts[2].lower()}
-
-
-    @commands.command()
-    async def command(self, ctx: commands.Context, data: DataConverter):
-        ...
-    ```
+@commands.command()
+async def command(self, ctx: commands.Context, data: DataConverter):
+    ...
+```
+````
 
 If you absolutely want to be able to use classes you may pass in a class method. Alternatively, set a method of the
 class to be the converter using `converter_method`.
 
-=== "`classmethod converter`"
+````{tabbed} classmethod converter
 
-    ```python linenums="1" hl_lines="9-12 19"
-    from dataclasses import dataclass
-
-
-    @dataclass
-    class Data:
-        a: str
-        b: int
-
-        @classmethod
-        async def from_option(cls, inter: disnake.CommandInteraction, arg: str):
-            a, b = arg.split(",")
-            return cls(a, int(b))
+```python linenums="1" hl_lines="9-12 19"
+from dataclasses import dataclass
 
 
-    @commands.slash_command()
-    async def command(
-        self,
-        inter: disnake.CommandInteraction,
-        data: Data = commands.Param(converter=Data.from_option),
-    ):
-        ...
-    ```
+@dataclass
+class Data:
+    a: str
+    b: int
 
-=== "`converter method`"
-
-    ```python linenums="1" hl_lines="9-12 19"
-    from dataclasses import dataclass
+    @classmethod
+    async def from_option(cls, inter: disnake.CommandInteraction, arg: str):
+        a, b = arg.split(",")
+        return cls(a, int(b))
 
 
-    @dataclass
-    class Data:
-        a: str
-        b: int
+@commands.slash_command()
+async def command(
+    self,
+    inter: disnake.CommandInteraction,
+    data: Data = commands.Param(converter=Data.from_option),
+):
+    ...
+```
+````
 
-        @commands.converter_method
-        async def from_option(cls, inter: disnake.CommandInteraction, arg: str):
-            a, b = arg.split(",")
-            return cls(a, int(b))
+````{tabbed} converter method
+
+```python linenums="1" hl_lines="9-12 19"
+from dataclasses import dataclass
 
 
-    @commands.slash_command()
-    async def command(
-        self,
-        inter: disnake.CommandInteraction,
-        data: Data,
-    ):
-        ...
-    ```
+@dataclass
+class Data:
+    a: str
+    b: int
+
+    @commands.converter_method
+    async def from_option(cls, inter: disnake.CommandInteraction, arg: str):
+        a, b = arg.split(",")
+        return cls(a, int(b))
+
+
+@commands.slash_command()
+async def command(
+    self,
+    inter: disnake.CommandInteraction,
+    data: Data,
+):
+    ...
+```
+````
 
 ## Context command targets
 
