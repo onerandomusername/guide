@@ -116,27 +116,29 @@ html_baseurl = "http://localhost:8005/"
 ogp_site_url = "https://onerandomusername.github.io/guide"
 ogp_description_length = 0
 ogp_site_name = "Disnake Guide"
-ogp_image = "https://i.imgur.com/3EhslbS.png"
+ogp_image = (
+    "https://raw.githubusercontent.com/DisnakeDev/guide/main/docs/assets/disnake-thin-banner.png"
+)
 ogp_image_alt = "Disnake Guide banner image"
 ogp_use_first_image = False
 ogp_type = "website"
 ogp_custom_meta_tags = [
     '<meta property="og:description" content="A guide for disnake, a Discord API wrapper written for Python." />',
     # <!-- Primary Meta Tags -->
-    '<meta name="title" content="Disnake Guide" />',
+    f'<meta name="title" content="{ogp_site_name}" />',
     '<meta name="description" content="A guide for disnake, a Discord API wrapper written in Python." />',
     # <!-- Open Graph / Facebook -->
     '<meta property="og:type" content="website" />',
-    '<meta property="og:url" content="https://guide.disnake.dev/" />',
-    '<meta property="og:title" content="Disnake Guide" />',
+    f'<meta property="og:url" content="{ogp_site_url}" />',
+    f'<meta property="og:title" content="{ogp_site_name}" />',
     '<meta property="og:description" content="A guide for disnake, a Discord API wrapper written in Python." />'
-    '<meta property="og:image" content="https://i.imgur.com/dfOQXqH.png" />,',
+    f'<meta property="og:image" content="{ogp_image}" />,',
     # <!-- Twitter -->
     '<meta property="twitter:card" content="summary_large_image" />'
-    '<meta property="twitter:url" content="https://guide.disnake.dev/" />'
-    '<meta property="twitter:title" content="Disnake Guide" />'
+    f'<meta property="twitter:url" content="{ogp_site_url}" />'
+    f'<meta property="twitter:title" content="{ogp_site_name}" />'
     '<meta property="twitter:description" content="A guide for disnake, a Discord API wrapper written in Python." />'
-    '<meta property="twitter:image" content="https://i.imgur.com/dfOQXqH.png" />',
+    f'<meta property="twitter:image" content="{ogp_image}" />',
 ]
 # -- MyST parser --------------------------------------------------------------
 # This allows us to use markdown files to create sphinx documentation
