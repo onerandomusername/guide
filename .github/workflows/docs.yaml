@@ -15,7 +15,6 @@ jobs:
           python-version: 3.9
       - name: Install dependencies
         run: |
-          pip install mkdocs-material
           pip install -r requirements.txt
       - name: Run pre-commit
         uses: pre-commit/action@v2.0.3
@@ -23,8 +22,10 @@ jobs:
       # only build on non-default branches
       - name: Build docs
         if: github.ref != 'refs/heads/main'
-        run: mkdocs build --strict
+        run: make html
       # only deploy from main branch
       - name: Build + Deploy docs
         if: github.ref == 'refs/heads/main'
-        run: mkdocs gh-deploy --force
+        run: |
+          pip install ghp-import
+          ghp-import --no-jekyll --push --branch=gh-pages --force --no-history build/html
